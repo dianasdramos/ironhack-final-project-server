@@ -24,8 +24,8 @@ app.use("/auth", authRoutes);
 const photoRoutes = require("./routes/photo.routes");
 app.use("/api", photoRoutes);
 
-/* const cameraRoutes = require("./routes/camera.routes");
-app.use("/api", cameraRoutes); */
+const cameraRoutes = require("./routes/camera.routes");
+app.use("/api", cameraRoutes);
 
 /*const userRoutes = require("./routes/user.routes");
 app.use("/api", userRoutes);*/

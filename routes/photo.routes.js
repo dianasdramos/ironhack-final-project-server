@@ -15,6 +15,7 @@ const Photo = require("../models/Photo.model");
 //GET All photos
 router.get("/photos", (req, res) => {
   Photo.find()
+
     .then((allPhotos) => {
       res.status(200).json(allPhotos);
     })
@@ -24,20 +25,30 @@ router.get("/photos", (req, res) => {
 });
 
 //GET photo Id
-router.get("/photos/:photoId", (req, res) => {
-  Photo.findById(req.params.photoId)
-    .populate("camera")
-    .then((photoIdFind) => {
-      res.status(200).json(photoIdFind);
-    })
-    .catch((error) => {
-      next(error);
-    });
+router.get("/photos/:photoId", async (req, res, next) => {
+  try {
+    const { photoId } = req.params;
+    const photos = await Photo.findById(photoId).populate("camera");
+    res.status(200).json(photos);
+  } catch (error) {
+    next(error);
+  }
 });
+
+/* router.get("/students/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const students = await Student.findById(id).populate("cohort");
+    res.status(200).json(students);
+  } catch (error) {
+    next(error);
+  }
+}); */
 
 // POST new photo
 router.post("/photo", (req, res) => {
-  const { image, title, year, photographer, description, category } = req.body;
+  const { image, title, year, photographer, description, category, camera } =
+    req.body;
 
   Photo.create({
     image,
@@ -46,6 +57,7 @@ router.post("/photo", (req, res) => {
     photographer,
     description,
     category,
+    camera,
   })
     .then((newPhoto) => res.json(newPhoto))
     .catch((error) => res.json(error));

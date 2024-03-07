@@ -29,9 +29,10 @@ const photoSchema = new Schema({
   },
   category: { type: [String], default: "" },
 
-  /* camera: {
-    name: { type: mongoose.Schema.Types.ObjectId, ref: "Camera", default: "" },
-  }, */
+  camera: {
+    type: Schema.Types.ObjectId,
+    ref: "Camera",
+  },
 });
 
 const Photo = model("Photo", photoSchema);
