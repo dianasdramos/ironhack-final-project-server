@@ -21,6 +21,15 @@ app.use("/api", indexRoutes);
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
+const photoRoutes = require("./routes/photo.routes");
+app.use("/api", photoRoutes);
+
+/* const cameraRoutes = require("./routes/camera.routes");
+app.use("/api", cameraRoutes); */
+
+/*const userRoutes = require("./routes/user.routes");
+app.use("/api", userRoutes);*/
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
