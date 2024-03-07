@@ -1,9 +1,6 @@
 // Require NPM packages
 const express = require("express");
 
-// Require Populate
-/* const populate = require("mongoose"); */
-
 // Configure an Express Router
 const router = express.Router();
 
@@ -15,7 +12,6 @@ const Photo = require("../models/Photo.model");
 //GET All photos
 router.get("/photos", (req, res) => {
   Photo.find()
-
     .then((allPhotos) => {
       res.status(200).json(allPhotos);
     })
@@ -54,7 +50,6 @@ router.post("/photo", (req, res) => {
 });
 
 //PUT photo
-
 router.put("/photos/:photoId", async (req, res, next) => {
   Photo.findByIdAndUpdate(req.params.photoId, req.body, { new: true })
     .then((updatedPhoto) => {
@@ -65,3 +60,15 @@ router.put("/photos/:photoId", async (req, res, next) => {
     });
 });
 module.exports = router;
+
+// Delete photo
+router.delete("/photos/:photoId", (req, res) => {
+
+  Photo.findByIdAndDelete(req.params.photoId)
+    .then(() => {
+      res.json({ message: "Photo deleted" });
+    })
+    .catch(() => {
+      res.json({ error: "Failed to delete a photo" });
+    });
+});
