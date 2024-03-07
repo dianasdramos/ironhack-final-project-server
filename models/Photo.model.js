@@ -29,7 +29,7 @@ const photoSchema = new Schema({
   category: { type: [String], enum: ["", "", "", "", "", ""] },
 
   camera: {
-    name: { type: String, default: "" },
+    name: { type: mongoose.Schema.Types.ObjectId, ref: "Camera", default: ""},
   },
 });
 
