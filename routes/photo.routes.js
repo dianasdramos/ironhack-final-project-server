@@ -55,27 +55,8 @@ router.post("/photo", (req, res) => {
 
 //PUT photo
 
-/* router.put("/photos/:photosId", (req, res) => {
-  // Object destructuring
-  const { photoId } = req.params;
-  const { image, title, year, photographer, description, category, camera } =
-    req.body;
-
-  Photo.findByIdAndUpdate(
-    photoId,
-    { image, title, year, photographer, description, category, camera },
-    { new: true }
-  )
-    .then((updatedPhoto) => {
-      res.status(200).json(updatedPhoto);
-    })
-    .catch((error) => {
-      next(error);
-    });
-}); */
-
-router.put("/photos/:photosId", async (req, res, next) => {
-  Photo.findByIdAndUpdate(req.params.id, req.body, { new: true })
+router.put("/photos/:photoId", async (req, res, next) => {
+  Photo.findByIdAndUpdate(req.params.photoId, req.body, { new: true })
     .then((updatedPhoto) => {
       res.status(200).json(updatedPhoto);
     })
