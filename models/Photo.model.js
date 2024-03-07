@@ -27,11 +27,11 @@ const photoSchema = new Schema({
     default: "",
     required: [true, "Photo description is required"],
   },
-  category: { type: [String], enum: ["", "", "", "", "", ""] },
+  category: { type: [String], default: "" },
 
-  camera: {
-    name: { type: mongoose.Schema.Types.ObjectId, ref: "Camera", default: ""},
-  },
+  /* camera: {
+    name: { type: mongoose.Schema.Types.ObjectId, ref: "Camera", default: "" },
+  }, */
 });
 
 const Photo = model("Photo", photoSchema);
