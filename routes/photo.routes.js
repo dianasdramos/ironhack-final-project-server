@@ -2,7 +2,7 @@
 const express = require("express");
 
 // Require Populate
-const populate = require("mongoose");
+/* const populate = require("mongoose"); */
 
 // Configure an Express Router
 const router = express.Router();
@@ -34,16 +34,6 @@ router.get("/photos/:photoId", async (req, res, next) => {
     next(error);
   }
 });
-
-/* router.get("/students/:id", async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const students = await Student.findById(id).populate("cohort");
-    res.status(200).json(students);
-  } catch (error) {
-    next(error);
-  }
-}); */
 
 // POST new photo
 router.post("/photo", (req, res) => {
