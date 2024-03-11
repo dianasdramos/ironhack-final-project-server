@@ -7,6 +7,8 @@ const router = express.Router();
 // Require the photo model
 const Photo = require("../models/Photo.model");
 
+const { isAuthenticated } = require("../middleware/jwt.middleware");
+
 /* Routes */
 
 //GET All photos
@@ -32,7 +34,7 @@ router.get("/photos/:photoId", async (req, res, next) => {
 });
 
 // POST new photo
-router.post("/photo", (req, res) => {
+router.post("/photo",isAuthenticated, (req, res) => {
   const { image, title, year, photographer, description, category, camera } =
     req.body;
 
@@ -50,7 +52,7 @@ router.post("/photo", (req, res) => {
 });
 
 //PUT photo
-router.put("/photos/:photoId", async (req, res, next) => {
+router.put("/photos/:photoId", isAuthenticated, async (req, res, next) => {
   Photo.findByIdAndUpdate(req.params.photoId, req.body, { new: true })
     .then((updatedPhoto) => {
       res.status(200).json(updatedPhoto);
@@ -62,7 +64,7 @@ router.put("/photos/:photoId", async (req, res, next) => {
 module.exports = router;
 
 // Delete photo
-router.delete("/photos/:photoId", (req, res) => {
+router.delete("/photos/:photoId", isAuthenticated, (req, res) => {
 
   Photo.findByIdAndDelete(req.params.photoId)
     .then(() => {
