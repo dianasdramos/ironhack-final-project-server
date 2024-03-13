@@ -6,6 +6,7 @@ const router = express.Router();
 
 // Require the photo model
 const Photo = require("../models/Photo.model");
+const User = require("../models/User.model");
 
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 
@@ -33,9 +34,22 @@ router.get("/photos/:photoId", async (req, res, next) => {
   }
 });
 
+/* TESTING */
+
+//GET photo by User Id
+router.get("/photos/auth/verify/:userId", async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const photos = await User.findById(userId).populate("photo");
+    res.status(200).json(photos);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // POST new photo
 router.post("/photo",isAuthenticated, (req, res) => {
-  const { image, title, year, photographer, description, category, camera } =
+  const { image, title, year, photographer, description, category, camera, user } =
     req.body;
 
   Photo.create({
@@ -46,6 +60,7 @@ router.post("/photo",isAuthenticated, (req, res) => {
     description,
     category,
     camera,
+    user
   })
     .then((newPhoto) => res.json(newPhoto))
     .catch((error) => res.json(error));

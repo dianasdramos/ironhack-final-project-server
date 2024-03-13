@@ -27,12 +27,16 @@ const photoSchema = new Schema({
     default: "",
     required: [true, "Photo description is required"],
   },
-  category: { type: [String], default: "" },
-
+  category: { type: [String], default: ""
+  },
   camera: {
     type: Schema.Types.ObjectId,
     ref: "Camera",
   },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  }
 });
 
 const Photo = model("Photo", photoSchema);
