@@ -6,7 +6,6 @@ const router = express.Router();
 
 // Require the photo model
 const Photo = require("../models/Photo.model");
-const User = require("../models/User.model");
 
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 
@@ -37,11 +36,12 @@ router.get("/photos/:photoId", async (req, res, next) => {
 /* TESTING */
 
 //GET photo by User Id
-router.get("/photos/auth/verify/:userId", async (req, res, next) => {
+router.get("/photos/user/:userId", isAuthenticated, async (req, res, next) => {
   try {
     const { userId } = req.params;
-    const photos = await User.findById(userId).populate("photo");
-    res.status(200).json(photos);
+    const userPhotos = await Photo.find({ user: userId }).populate("camera");
+    
+    res.status(200).json(userPhotos);
   } catch (error) {
     next(error);
   }
