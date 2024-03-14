@@ -33,7 +33,6 @@ router.get("/photos/:photoId", async (req, res, next) => {
   }
 });
 
-/* TESTING */
 
 //GET photo by User Id
 router.get("/photos/user/:userId", isAuthenticated, async (req, res, next) => {
